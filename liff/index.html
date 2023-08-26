@@ -29,10 +29,12 @@
   <div class="row" style="display: none;">
     <div class="col-sm-12"><p id="userId"></p></div>
   </div> 
+  
   <div class="row">
     <div class="col-sm-12"><p id="displayName"></p></div>
   </div> 
-  <h3 class="form-control" style="background-color: blueviolet;color: #fff;">ข้อมูลการของคิว</h3>
+  <div class="form-control dvHeader">ข้อมูลการของคิว</div>
+  <br/>
   <div class="row">
     <div class="col-sm-12">
       <label>ท่าเรือ</label>
@@ -56,7 +58,8 @@
   <div class="row">
     <div class="col-sm-12">
       <label>วันที่จอง</label>
-      <input type="date" id="txtDate" data-role="datebox" data-options='{&quot;mode&quot;:&quot;flipbox&quot;}' data-date-format="dd/mm/yyyy" />
+      <input type="date" id="txtDate" data-role="datebox" data-options='{&quot;mode&quot;:&quot;flipbox&quot;,"overrideDateFormat": "%Y.%m.%d"}'   readonly />
+      
     </div>
   </div> 
   <div class="row">
@@ -70,7 +73,7 @@
   <div class="col-sm-12">
   <div class="row">
       <div class="col-12">
-        <h3 class="form-control" style="background-color: blueviolet;color: #fff;">ระบุ</h3>
+        <div class="form-control dvHeader" >ระบุ</div>
         <div id="checkboxes">
            
         </div>
@@ -94,7 +97,7 @@
  <br/>
 </div>
 <div id="step3" class="container">
-  <h3 class="form-control" style="background-color: blueviolet;color: #fff;">สรุปการจองคิว</h3>
+  <div class="form-control dvHeader" >สรุปการจองคิว</div>
   <div class="row">
   <div class="col-sm-12">
     <label>ท่าเรือ</label>
@@ -147,14 +150,16 @@
 
   <script>
     $(document).ready(function () {
-    jQuery.extend(jQuery.mobile.datebox.prototype.options, {
-        'dateFormat': 'dd/MM/YYYY',
-        'headerFormat': 'dd/MM/YYYY',
-    });
-    $("#txtDate").click(function (event) {
+      
+    
+        $("#txtDate").click(function (event) {
             $(".ui-icon-calendar").trigger("click");
         });
+        $("#txtDate").change(function (event) {
+            alert($(this).val());
+        });
     });
+    
     function step1() {
        var status=validData();
        console.log(status);
@@ -317,13 +322,13 @@
     }
     $("#step2").hide();
     $("#step3").hide();
-    liff.init({ liffId: "2000487303-op9O67xV" }, () => {
-      if (liff.isLoggedIn()) {
-        runApp()
-      } else {
-        liff.login();
-      }
-    }, err => console.error(err.code, error.message));
-  // </script>
+    // liff.init({ liffId: "2000487303-op9O67xV" }, () => {
+    //   if (liff.isLoggedIn()) {
+    //     runApp()
+    //   } else {
+    //     liff.login();
+    //   }
+    // }, err => console.error(err.code, error.message));
+  </script>
 </body>
 </html>
