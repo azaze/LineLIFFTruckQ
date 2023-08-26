@@ -182,3 +182,6 @@ table {
 div.holoPressEffectDiv {
 	background-color: #CCCCCC;
 }
+.input-error{
+    outline: 1px solid red;
+}

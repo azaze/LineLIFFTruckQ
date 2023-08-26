@@ -58,9 +58,8 @@
   <div class="row">
     <div class="col-sm-12">
       <label>วันที่จอง</label>
-      <!-- <input type="date" id="txtDate" data-role="datebox" data-options='{&quot;mode&quot;:&quot;flipbox&quot;}'   readonly /> -->
-        <input name="txtDate" id="txtDate" type="date" data-role="datebox" data-options='{"mode": "flipbox", "closeCallback":"onCLoseMyDate();"}' />
-     
+      <input type="text" id="txtDate" data-role="datebox" data-options='{&quot;mode&quot;:&quot;flipbox&quot;}'   readonly />
+      
     </div>
   </div> 
   <div class="row">
@@ -99,6 +98,7 @@
 </div>
 <div id="step3" class="container">
   <div class="form-control dvHeader" >สรุปการจองคิว</div>
+  <br/>
   <div class="row">
   <div class="col-sm-12">
     <label>ท่าเรือ</label>
@@ -126,14 +126,14 @@
 <div class="row">
     <div class="col-sm-12">
       <label>ทะเบียนรถ</label>
-      <input type="text" id="txtLicense" class="form-control" maxlength="6"/>
+      <input type="text" id="txtLicense" class="form-control number" maxlength="6"/>
     </div>
   </div> 
 <br/>
 <div class="row">
     <div class="col-sm-12">
       <label>เบอร์ติดต่อ</label>
-      <input type="number" id="txtTelNo" class="form-control" maxlength="10"/>
+      <input type="text" id="txtTelNo" class="form-control number" maxlength="10"/>
     </div>
   </div> 
 <div class="row">
@@ -146,21 +146,39 @@
   </div>
 </div> 
 </div>
-  
- 
-
   <script>
-    $(document).ready(function () {
-      
+  $(document).ready(function () {
+      $.fn.inputFilter = function(callback, errMsg) {
+    return this.on("input keydown keyup mousedown mouseup select contextmenu drop focusout", function(e) {
+      if (callback(this.value)) {
+        // Accepted value
+        if (["keydown","mousedown","focusout"].indexOf(e.type) >= 0){
+          $(this).removeClass("input-error");
+          this.setCustomValidity("");
+        }
+        this.oldValue = this.value;
+        this.oldSelectionStart = this.selectionStart;
+        this.oldSelectionEnd = this.selectionEnd;
+      } else if (this.hasOwnProperty("oldValue")) {
+        // Rejected value - restore the previous one
+        $(this).addClass("input-error");
+        this.setCustomValidity(errMsg);
+        this.reportValidity();
+        this.value = this.oldValue;
+        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+      } else {
+        // Rejected value - nothing to restore
+        this.value = "";
+      }
+    });
+  };
+  $(".number").inputFilter(function(value) {
+        return /^-?\d*$/.test(value); }, "คีย์ตัวเลขเท่านั้น");
     
         $("#txtDate").click(function (event) {
             $(".ui-icon-calendar").trigger("click");
         });
-        $("#txtDate").change(function (event) {
-           var dateObject = $('#txtDate').datebox('getTheDate'),
-        theDate =  $('#txtDate').datebox('callFormat', '%m/%d/%Y', dateObject);
-        alert(theDate);  
-        });
+         
     });
     
     function step1() {
@@ -223,7 +241,7 @@
         $("#lblTel").val(txtTelNo);
 
     }
-    function step3() {
+   function step3() {
        var status=validData2();
        console.log(status);
          if(status!=''){
@@ -268,7 +286,7 @@
         if($("#txtTelNo").val()==''){
           status+=',เบอร์โทร ';
         }
-        if($("#txtTelNo").val()!=10){
+        if($("#txtTelNo").val().length!=10){
           status+=',เบอร์โทรให้ครบ ';
         }
         if($("#txtLicense").val()==''){
@@ -325,13 +343,13 @@
     }
     $("#step2").hide();
     $("#step3").hide();
-    // liff.init({ liffId: "2000487303-op9O67xV" }, () => {
-    //   if (liff.isLoggedIn()) {
-    //     runApp()
-    //   } else {
-    //     liff.login();
-    //   }
-    // }, err => console.error(err.code, error.message));
+    liff.init({ liffId: "2000487303-op9O67xV" }, () => {
+      if (liff.isLoggedIn()) {
+        runApp()
+      } else {
+        liff.login();
+      }
+    }, err => console.error(err.code, error.message));
   </script>
 </body>
 </html>
