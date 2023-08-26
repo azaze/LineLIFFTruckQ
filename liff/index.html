@@ -58,8 +58,9 @@
   <div class="row">
     <div class="col-sm-12">
       <label>วันที่จอง</label>
-      <input type="date" id="txtDate" data-role="datebox" data-options='{&quot;mode&quot;:&quot;flipbox&quot;}'   readonly />
-      
+      <!-- <input type="date" id="txtDate" data-role="datebox" data-options='{&quot;mode&quot;:&quot;flipbox&quot;}'   readonly /> -->
+        <input name="txtDate" id="txtDate" type="date" data-role="datebox" data-options='{"mode": "flipbox", "closeCallback":"onCLoseMyDate();"}' />
+     
     </div>
   </div> 
   <div class="row">
@@ -156,9 +157,9 @@
             $(".ui-icon-calendar").trigger("click");
         });
         $("#txtDate").change(function (event) {
-            alert($(this).val());
-
-            $("#txtDate").val('20/12/2023');
+           var dateObject = $('#txtDate').datebox('getTheDate'),
+        theDate =  $('#txtDate').datebox('callFormat', '%m/%d/%Y', dateObject);
+        alert(theDate);  
         });
     });
     
