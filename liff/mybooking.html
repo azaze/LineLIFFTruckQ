@@ -33,42 +33,9 @@
   <div class="row">
     <div class="col-sm-12"><p id="displayName"></p></div>
   </div> 
-  <div class="form-control dvHeader">ข้อมูลการของคิว</div>
+  <div class="form-control dvHeader">ข้อมูลการของคิวของฉัน</div>
   <br/>
-  <div class="row">
-    <div class="col-sm-12">
-      <label>ท่าเรือ</label>
-      <select id="ddlTerminal" class="form-control">
-        <option selected="" value="--">เลือก</option>
-        <option value="A0">A0</option>
-        <option value="B1">B1</option>
-    </select>
-    </div>
-  </div>   
-  <div class="row">
-    <div class="col-sm-12">
-      <label>กิจกรรม</label>
-      <select id="ddlToPic" class="form-control">
-      <option selected="" value="--">เลือก</option>
-      <option value="RE">ส่งตู้(หนัก)</option>
-      <option value="DE">รับตู้(หนัก)</option>
-    </select>
-    </div>
-  </div> 
-  <div class="row">
-    <div class="col-sm-12">
-      <label>วันที่จอง</label>
-      <input type="text" id="txtDate" data-role="datebox" data-options='{&quot;mode&quot;:&quot;flipbox&quot;}'   readonly />
-      
-    </div>
-  </div> 
-  <div class="row">
-    <div class="col-sm-12">
-      <br/>
-      <button id="btnNextStep1" onclick="step1()" class="btn btn-primary">ถัดไป</button>
-    </div>
-  </div> 
-</div>
+</div> 
 <div id="step2" class="container">
   <div class="col-sm-12">
   <div class="row">
@@ -83,61 +50,6 @@
   </div> 
   <br/>
  <div class="row">
-    <div class="col-12">
-      <div class="col-sm-12">
-      <button id="btnMsg" onclick="step2()" class="btn btn-primary">ถัดไป</button></div>
-    </div>
-    </div>
-    <div class="row">
-    <div class="col-12">
-      <div class="col-sm-12">
-      <button id="btnMsg" onclick="backStep1()" class="btn btn-danger">กลับ</button></div>
-    </div></div>
-  </div> 
- </div> 
- <br/>
-</div>
-<div id="step3" class="container">
-  <div class="form-control dvHeader" >สรุปการจองคิว</div>
-  <br/>
-  <div class="row">
-  <div class="col-sm-12">
-    <label>ท่าเรือ</label>
-    <input type="text" id="lblTerminal" class="form-control" readonly/>
-  </div>    
-</div> 
-<div class="row">
-      <div class="col-sm-12">
-        <label>กิจกรรม</label>
-        <input type="text" id="lblTopic" class="form-control" readonly/>
-      </div>    
- </div> 
-<div class="row">
-  <div class="col-sm-12">
-    <label>วันที่</label>
-    <input type="text" id="lblDate" class="form-control" readonly/>
-  </div>    
-</div> 
-<div class="row">
-  <div class="col-sm-12">
-    <label>เวลา</label>
-    <input type="text" id="lblTime" class="form-control" readonly/>
-  </div>    
-</div> 
-<div class="row">
-    <div class="col-sm-12">
-      <label>ทะเบียนรถ</label>
-      <input type="text" id="txtLicense" class="form-control number" maxlength="6"/>
-    </div>
-  </div> 
-<br/>
-<div class="row">
-    <div class="col-sm-12">
-      <label>เบอร์ติดต่อ</label>
-      <input type="text" id="txtTelNo" class="form-control number" maxlength="10"/>
-    </div>
-  </div> 
-<div class="row">
   <div class="col-sm-12">
     <button id="btnMsg" onclick="step3()" class="btn btn-primary">ยืนยัน</button>
   </div></div>
@@ -355,6 +267,7 @@
         document.getElementById("displayName").innerHTML = '<b>สวัสดี:</b> ' + profile.displayName;
         //document.getElementById("statusMessage").innerHTML = '<b>StatusMessage:</b> ' + profile.statusMessage;
         //document.getElementById("getDecodedIDToken").innerHTML = '<b>Email:</b> ' + liff.getDecodedIDToken().email;
+        loadData();
       }).catch(err => console.error(err));
     }
     $("#step2").hide();
