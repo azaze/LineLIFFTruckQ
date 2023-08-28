@@ -123,6 +123,7 @@
         $.ajax({
             type: "GET",
             url:url,
+            headers: {  'Access-Control-Allow-Origin': '*' },
             dataType: 'JSON',
             success:function(data) {
               JSON.stringify(data);
