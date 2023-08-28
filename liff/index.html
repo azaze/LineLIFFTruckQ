@@ -50,8 +50,8 @@
       <label>กิจกรรม</label>
       <select id="ddlToPic" class="form-control">
       <option selected="" value="--">เลือก</option>
-      <option value="ส่งตู้(หนัก)">ส่งตู้(หนัก)</option>
-      <option value="รับตู้(เปล่า)">รับตู้(หนัก)</option>
+      <option value="RE">ส่งตู้(หนัก)</option>
+      <option value="DE">รับตู้(หนัก)</option>
     </select>
     </div>
   </div> 
@@ -74,6 +74,7 @@
   <div class="row">
       <div class="col-12">
         <div class="form-control dvHeader" >ระบุ</div>
+        <div class="form-control" ><p id="lblSelectDate"></p></div></div>
         <div id="checkboxes">
            
         </div>
@@ -198,16 +199,26 @@
         
     }
     async function  loadData (){
+      var ddlToPic=$("#ddlToPic").val();
+      var ddlTerminal=$("#ddlTerminal").val();
+      var txtLicense=$("#txtLicense").val();
+      var txtDate=$("#txtDate").val();
+      
+      document.getElementById("lblSelectDate").innerHTML = '<b>วันที่:</b> ' + txtDate.replaceAll('-','');
       $select = $('#checkboxes');
+      var url='https://e4a7-203-170-246-244.ngrok-free.app/slottime/'+ddlTerminal+'/'+txtDate.replaceAll('-','')+'/'+ddlToPic;
+      console.log(url);
         $.ajax({
             type: "GET",
-            url: 'https://dummyjson.com/products',
+            url:url,
             dataType: 'JSON',
             success:function(data) {
               JSON.stringify(data);
                 $select.html('<ul>');
-                $.each(data.products, function(key, val) {
-                    $select.append('<li><input type="radio" name="BookList" value='+val.id+'> <label> ' + val.title + '</label> </li>');
+                $.each(data.list_slot, function(key, val) {
+                  var time= pad(val.available,4);
+                  console.log(time);
+                    $select.append('<li><table><tr><td><input type="radio" name="BookList" value='+val.slot+'> </td><td><label> ' + time + '</label></td></table> </li>');
                 });
                 $select.append('</ul>');
             },
@@ -216,6 +227,11 @@
             }
         });
     }
+    function pad(num, size) {
+    num = num.toString();
+    while (num.length < size) num = "0" + num;
+    return num;
+}
     function backStep1(){
       $("#step2").hide();
       $("#step1").show();
@@ -253,7 +269,7 @@
           cancelCallback: function () {
           },
           submitCallback: function () {
-          var msg='จองคิว\n1.'+$("#ddlTerminal").val()+'\n2.'+$("#ddlToPic").val()+'\n3.'+$("#txtDate").val().replace('-','')+'\n4.'+$("#lblTime").val()+'\n5.'+$("#txtLicense").val()+'\n6.'+$("#txtTelNo").val();
+          var msg='จองคิว\n1.'+$("#ddlTerminal").val()+'\n2.'+$("#ddlToPic").val()+'\n3.'+$("#txtDate").val().replaceAll('-','')+'\n4.'+$("#lblTime").val()+'\n5.'+$("#txtLicense").val()+'\n6.'+$("#txtTelNo").val();
           console.log(msg);
           sendMsg(msg);
           }
@@ -343,13 +359,13 @@
     }
     $("#step2").hide();
     $("#step3").hide();
-    liff.init({ liffId: "2000487303-op9O67xV" }, () => {
-      if (liff.isLoggedIn()) {
-        runApp()
-      } else {
-        liff.login();
-      }
-    }, err => console.error(err.code, error.message));
+    // liff.init({ liffId: "2000487303-op9O67xV" }, () => {
+    //   if (liff.isLoggedIn()) {
+    //     runApp()
+    //   } else {
+    //     liff.login();
+    //   }
+    // }, err => console.error(err.code, error.message));
   </script>
 </body>
 </html>
