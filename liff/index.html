@@ -213,7 +213,8 @@
             url:url,
             dataType: 'JSON',
             success:function(data) {
-              JSON.stringify(data);
+              console.log( JSON.stringify(data));
+              
                 $select.html('<ul>');
                 $.each(data.list_slot, function(key, val) {
                   var time= pad(val.available,4);

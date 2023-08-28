@@ -114,11 +114,11 @@
       var ddlToPic=$("#ddlToPic").val();
       var ddlTerminal=$("#ddlTerminal").val();
       var txtLicense=$("#txtLicense").val();
-      var txtDate=$("#txtDate").val();
+      var txtDate=$("#txtDate").val('2023-08-28');
       
       document.getElementById("lblSelectDate").innerHTML = '<b>วันที่:</b> ' + txtDate.replaceAll('-','');
       $select = $('#checkboxes');
-      var url='https://e4a7-203-170-246-244.ngrok-free.app/slottime/'+ddlTerminal+'/'+txtDate.replaceAll('-','')+'/'+ddlToPic;
+      var url='https://e4a7-203-170-246-244.ngrok-free.app/slottime/A0/20230828/RE';
       console.log(url);
         $.ajax({
             type: "GET",
@@ -272,6 +272,7 @@
     }
     $("#step2").hide();
     $("#step3").hide();
+     
     liff.init({ liffId: "2000487303-op9O67xV" }, () => {
       if (liff.isLoggedIn()) {
         runApp()
