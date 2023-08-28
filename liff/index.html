@@ -253,7 +253,7 @@
           cancelCallback: function () {
           },
           submitCallback: function () {
-          var msg='จองคิว\n1.'+$("#ddlTerminal").val()+'\n2.'+$("#ddlToPic").val()+'\n3.'+$("#txtDate").val()+'\n4.'+$("#lblTime").val()+'\n5.'+$("#txtLicense").val()+'\n6.'+$("#txtTelNo").val();
+          var msg='จองคิว\n1.'+$("#ddlTerminal").val()+'\n2.'+$("#ddlToPic").val()+'\n3.'+$("#txtDate").val().replace('-','')+'\n4.'+$("#lblTime").val()+'\n5.'+$("#txtLicense").val()+'\n6.'+$("#txtTelNo").val();
           console.log(msg);
           sendMsg(msg);
           }
