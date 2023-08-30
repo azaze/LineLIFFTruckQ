@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
   <title>LCB1 Truck Q V1.1</title>
   <!-- Style -->
-  <link rel="stylesheet" href="css/style.css" media="all">
+  <!-- <link rel="stylesheet" href="css/style.css" media="all"> -->
   <link rel="stylesheet" type="text/css" href="css/notie.css">
   <link href="css/jquery.mobile-1.4.4.min.css" rel="stylesheet" />
   <link href="css/jqm-datebox-1.4.4.min.css" rel="stylesheet" />
@@ -18,6 +18,195 @@
   <script src="js/jqm-datebox-1.4.4.mode.flipbox.min.js"></script>
   <script src="js/notie.js"></script>
   <script src="https://static.line-scdn.net/liff/edge/versions/2.9.0/sdk.js"></script>
+  <style>
+    button {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  margin: 8px auto
+}
+
+p {
+  border-bottom: 1px dashed #ddd
+}
+
+#pictureUrl {
+  display: block;
+  margin: 0 auto;
+  width: 12%;
+  display: -moz-box;
+  display: -webkit-box;
+  display: box;
+  -moz-box-pack: center;
+  -moz-box-align: center;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  box-pack: center;
+  box-align: center;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+}
+
+#accessToken, #utouId {
+  display: block;
+  overflow: auto
+}#pictureUrl { display: block; margin: 0 auto }
+    li { /* styles all li elements*/
+    list-style-type: none;
+    }
+    .ui-datebox-flipcenter {
+        width: 160px;
+    }
+
+    table tr td {
+        padding: 5px;
+    }
+
+    .control-label {
+        font-size: 20px !important;
+    }
+    #btnSave, #btnSave:visited, .ui-btn {
+        /*background-color: #3c8dbc !important;
+        border-color: #367fa9 !important;
+        color: #ffffff !important;
+        opacity: 1 !important;*/
+    }
+
+    .ui-datebox-container {
+        zoom: 150%;
+    }
+    .container{
+      padding: 10px;
+    }
+    h2,h4,h3,.dvHeader{padding: 10px;
+    color: #000 !important;
+    background-color: #c0c0c0 !important;
+    border-color: #007bff !important;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+    .btn-primary {
+    color: #fff !important;
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}.btn-danger {
+    color: #fff !important;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}.ui-datebox-flipcenter {
+     width: 100%;/
+}
+button:hover{
+  transform: scale(1.02);
+}
+.header {
+  /* border: 1px solid #c0c0c0; */
+  padding: 25px;
+  background: url(../images/HomeImg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+heading>.heading>table td#line1 {
+    /* width: 25px; */
+    background-image: url(../images/TitleBG1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+heading>.heading>table td#line2 {
+    background-image: url(../images/TitleBG2.png);
+    background-repeat: repeat-x;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+}
+heading>.heading>table td#line3 {
+    width: 117px;
+    background-image: url(../images/TitleBG3.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+heading {
+    /* margin: 15px 0 15px; */
+}
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 0px;
+    border-color: gray;
+    width: 100%;
+}
+.ui-datebox-container {
+    zoom: 99.99%;
+    
+}
+.card {
+  background: #FFF;
+  border: 1px solid #AAA;
+  box-shadow: 0px 2px 3px 0px #AAA;
+  padding: 0px;
+  margin-top: 15px;
+  margin-right: 7.5px;
+  margin-bottom: 15px;
+  margin-left: 7.5px;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.card h1 {
+  margin: 0px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+.card p {
+  margin: 0px;
+  padding: 10px;
+}
+.card-image {
+  width: 100%;
+  height: 200px;
+  padding: 0px;
+  margin: 0px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+.card-image .banner {
+  height: 50px;
+  width: 50px;
+  top: 0px;
+  right: 0px;
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-image: url('../images/new.png');
+  position: absolute;
+}
+.card-image h1, 
+.card-image h2, 
+.card-image h3, 
+.card-image h4, 
+.card-image h5, 
+.card-image h6 {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  color: white;
+  background: rgba(0,0,0,0.65);
+  margin: 0px;
+  padding: 6px;
+  border: none;
+}
+div.holoPressEffectDiv {
+	background-color: #CCCCCC;
+}
+.input-error{
+    outline: 1px solid red;
+}
+  </style>
 </head>
 <body>
 <div id="step1" class="container">
