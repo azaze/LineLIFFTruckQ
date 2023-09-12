@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
+  <title>LCB1 Truck Q</title>
+  <link rel="stylesheet" href="css/style.css" media="all">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/notie/4.3.1/notie.css">
+ 
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+  <link href="css/jquery.mobile-1.4.4.min.css" rel="stylesheet" />
+  <link href="https://cdn.jtsage.com/datebox/1.4.4/jqm-datebox-1.4.4.min.css" rel="stylesheet" />
+<!-- NOTE: Script load order is significant! -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+<!-- <script src="https://cdn.jtsage.com/datebox/1.4.4/jqm-datebox-1.4.4.core.min.js"></script> -->
+<script src="js/jqm-datebox-1.4.4.core.min.js"></script>
+<script src="https://cdn.jtsage.com/datebox/1.4.4/jqm-datebox-1.4.4.mode.flipbox.min.js"></script>
+<script src="js/notie.js"></script>
+<script src="js/core.js"></script>
+<style>
+  
+</style>
+</head>
+<body>
+<div id="step1" class="container">
+  <heading>
+  <div class="heading"><table><tbody><tr><td id="line1"></td><td id="line2">Welcome to LCB1 and  LCMT</td><td id="line3"></td></tr></tbody></table><div class="heading-line"></div></div>
+   <div class="row header">
+    <div class="col-sm-12"><img id="pictureUrl" style="height: 100px;width: 100px;"></div>
+  </div></heading> 
+  <div class="row" style="display: none;">
+    <div class="col-sm-12"><p id="userId"></p></div>
+  </div> 
+  <div class="row">
+    <div class="col-sm-12"><p id="displayName"></p></div>
+  </div> 
+  <h3 class="form-control" style="background-color: blueviolet;color: #fff;">ข้อมูลการจองคิว</h3>
+  <h8 class="form-control" style="color: red;padding-left: 10px;">    * หากเปลี่ยนใจการยกเลิก กดปิดโปรแกรม</h8>
+      <div class="row">
+        <div class="col-12">
+         
+        <div id="checkboxes" style="overflow-y: scroll;margin-bottom: 20%;margin-top: 10%;">
+             
+          </div>
+           
+        </div></div>
+  </div> 
+  <br/>
+  <div class="dvButtom2">
+ <div class="row btnSaveStep2">
+    <div class="col-12">
+      <div class="col-sm-12">
+      <button id="btnStep2" onclick="step2()" class="btn btn-danger">ยกเลิกการจองคิว</button></div>
+    </div>
+    </div>
+     
+  </div> 
+ </div> 
+</div>
+  
+ 
+  
+ 
+  <!-- <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>  -->
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.9.0/sdk.js"></script>
+  <script>
+    $(document).ready(function () {
+     
+        $("#txtDate").click(function (event) {
+            $(".ui-icon-calendar").trigger("click");
+        });
+
+        //loadData ('U6af0202eb51783635f072a9817fc2aea')
+     });
+ 
+    async function  loadData (arg){  
+      
+      $select = $('#checkboxes');
+      var url='https://tq.sec443.com';
+          //url='http://localhost:5081';
+            
+        $.ajax({
+            type: "GET",
+            url: url+'/Reserved/'+arg,
+            dataType: 'JSON',
+            success:function(data) {
+            console.log(JSON.stringify(data));
+               var rowCount=0;
+                $select.html('<table>');
+                  //alert('check count==>'+data.length);
+                  if(data.length==0){
+                    $select.html('<div><h2 style="text-align:center">ไม่พบข้อมูล</h2><br/><div style="text-align: center;"><img src="images/nodata.png" width="100" /><div><div>');
+                    $('.btnSaveStep2').hide();
+                  }else{
+                    $('.btnSaveStep2').show();
+                       $.each(data, function(key, val) {
+                          var slotText='';
+                          console.log('check reserve_Time==>'+val.reserve_Time);
+                          var padData=padDigits(val.reserve_Time,2);
+                          var slotText=padData+':00-'+padData+':59' ;
+                          var cancelID=val.reserveNoTicket+'/'+val.truckNO
+                          console.log('check slotText==>'+ slotText);
+                          var dateArr= val.reserve_Date.substring(0,10).split('-');
+                          $select.append('<tr class="checklisttr"><td><input type="checkbox" id='+cancelID+'  value='+slotText+' class="slot"></td><td><label for='+cancelID+'  > '+(dateArr[2]+'/'+dateArr[1]+'/'+dateArr[0])+'\n<p style="font-size:15px">'+slotText+'</p> </label></td><td> <label for='+cancelID+' class="button"  > หมายเลขจอง : ' + cancelID + '  </label></td></tr>');
+                          rowCount++;
+                         
+                    });
+                $select.append('</table>');
+
+                
+               }
+               if(rowCount==0){
+                  $select.html('<div><h2 style="text-align:center">ไม่พบข้อมูล</h2><br/><div style="text-align: center;"><img src="images/nodata.png" width="100" /><div><div>');
+                  $('.btnSaveStep2').hide();
+                }
+            },
+            error: function(){
+              $select.html('<div><h2 style="text-align:center">ระบบขัดข้อง</h2><br/><div style="text-align: center;"><img src="images/nodata.png" width="100" /><div><div>');
+            }
+        });
+    }
+    function padDigits(number, digits) {
+      return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+    }
+    function getChecklistItems() {
+      var result =
+          $("tr.checklisttr > td > input:checkbox:checked").get();
+
+          var columns = $.map(result, function(element) {
+              return $(element).attr("id");
+          });
+          console.log('columns==>'+columns);
+      return columns.join("|");
+  }
+   
+   
+    function step2() {
+       var status=getChecklistItems();
+      
+         if(status==''){
+
+           notie.alert({ type: 3, text: 'กรุณาเลือกข้อมูล', time: 2 })
+          return;
+         }
+         notie.confirm({
+          text: 'ยืนยันการบันทักข้อมูล?<br>',
+          cancelCallback: function () {
+          
+          },
+          submitCallback: function () {
+            var allCancelID='';
+            var statusArr=status.split('|');
+            for (var i = 0; i < statusArr.length; i++) {
+              allCancelID+='\n' +(i+1)+'.'+statusArr[i];
+            }
+
+            var msg='ยกเลิกการจอง'+allCancelID;
+            console.log(msg);
+            sendMsg(msg);
+          }
+      });
+   }
+
+    async function sendMsg(msg) {
+      if (!liff.isInClient()) {
+          window.alert('This button is unavailable as LIFF is currently being opened in an external browser.');
+      } else {
+          liff.sendMessages([
+              {
+                  type: 'text',
+                  text: msg,
+              },
+          ]).then(() => {
+                //success closeWindow
+            if (!liff.isInClient()) {
+              window.alert('This button is unavailable as LIFF is currently being opened in an external browser.');
+            } else {
+                notie.alert({ type: 1, text: 'บันทีกสำเร็จ! :D', time: 2 });
+                setTimeout(() => {
+                  liff.closeWindow();
+                }, 2000);
+              }
+            }).catch((error) => {
+                  window.alert('Error sending message: ' + error);
+              });
+      }
+      
+      
+ 
+    }
+ 
+  
+
+  
+    async  function runApp() {
+      liff.getProfile().then(profile => {
+        document.getElementById("pictureUrl").src = profile.pictureUrl;
+        document.getElementById("userId").innerHTML = '<b>UserId:</b> ' + profile.userId;
+        //document.getElementById("displayName").innerHTML = '<b>สวัสดี:</b> ' + profile.displayName;
+        //document.getElementById("statusMessage").innerHTML = '<b>StatusMessage:</b> ' + profile.statusMessage;
+        //document.getElementById("getDecodedIDToken").innerHTML = '<b>Email:</b> ' + liff.getDecodedIDToken().email;
+        loadData(profile.userId);
+      }).catch(err => console.error(err));
+    }
+     
+    liff.init({ liffId: "2000487303-32rDnRo6" }, () => {
+      if (liff.isLoggedIn()) {
+        runApp()
+         
+      } else {
+        liff.login();
+      }
+    }, err => console.error(err.code, error.message));
+  </script>
+</body>
+</html>
